@@ -1,4 +1,4 @@
-アプリを出力
+アプリを出力 electron versionを明示的に指定すること
 ```
-lectron-packager ./ Gsearch2 --platform=darwin,win32 --arch=x64 --version=1.2.6
+electron-packager ./ Gsearch2 --platform=darwin,win32 --arch=x64 --version=1.2.6
 ```

@@ -11,14 +11,18 @@ _("#search").on('click', function(){
     _("#search").attr('disabled', 'disabled');
     _("#loading").show();
 
-    //getData(q, addText);
     getDataPromise(q, addText);
+});
+
+_("#data, #data_domain").on('focus', function(){
+    _(this).select();
 });
 
 function addText(){
     _('#data').html(data);
     _("#loading").hide();
     _("#search").removeAttr('disabled');
+    domain(data);
 }
 
 function getDataPromise(q, callback){
@@ -67,4 +71,21 @@ function addData(result){
     });
     next = result.$('a#pnnext').url();
     return client.fetch(next);
+}
+
+function domain(data){
+    data_arr = data.split('\n');
+    arr = [];
+    _.each(data_arr, function(){
+        if(this != ''){
+            arr.push(this.split('/')[2]);
+        }
+    });
+
+    result_arr = _.unique(arr);
+    text = '';
+    _.each(result_arr, function(){
+        text += this + "\n";
+    });
+    _("#data_domain").text(text);
 }

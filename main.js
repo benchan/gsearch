@@ -1,11 +1,11 @@
 // electronモジュールを読み込み
-const electron = require('electron')
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
+const {app, BrowserWindow, Menu} = require('electron');
 
 // 新しいウィンドウ(Webページ)を生成
 let mainWindow
 function createWindow () {
+
+    addMenu();
     // BrowserWindowインスタンスを生成
     mainWindow = new BrowserWindow({width: 800, height: 600, 'node-integration': false})
     //mainWindow = new BrowserWindow({width: 800, height: 600})
@@ -31,27 +31,20 @@ app.on('window-all-closed', function () {
     }
 })
 
-//var request = require('request');
-//var targetUrl = "http://blog.honjala.net/about";
-//request(targetUrl, function (err, res, body) {
-    //if (err) {
-        //console.log(err);
-    //}
-    //$("#data").html(body);
-//});
+function addMenu(){
+    var template = [{
+        label: "Application",
+        submenu: [
+            { type: "separator" },
+            { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
+        ]}, {
+            label: "Edit",
+            submenu: [
+                { type: "separator" },
+                { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+                { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+            ]}
+    ];
 
-//var client = require('cheerio-httpcli');
-//var word = 'node.js';
-
-//client.fetch('http://www.google.com/search', { q: word }, function (err, $, res, body) {
-    //// レスポンスヘッダを参照
-    //console.log(res.headers);
-
-    //// HTMLタイトルを表示
-    //console.log($('title').text());
-
-    //// リンク一覧を表示
-    //$('a').each(function (idx) {
-        //console.log($(this).attr('href'));
-    //});
-//});
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+}

@@ -1,3 +1,7 @@
+# Google Search アプリ
+
+### Googleから指定キーワードで100件を検索、検索結果のURLリストを出力
+
 アプリを出力 electron versionを明示的に指定すること
 ```
 #MAC, WINのアプリを出力の場合
